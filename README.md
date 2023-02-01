@@ -1,1 +1,1 @@
-server 
+server REST API for quest App with auth login whit JWT, roles, swagger, sequelize, postgreSQL, validation data, websocket chat, docker, prod/dev environments
