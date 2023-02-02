@@ -7,18 +7,18 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Role } from 'src/role/role.model';
-import { UserRoles } from 'src/role/user-roles.model';
 import { User } from 'src/users/users.model';
 
 interface PostCreationAttrs {
-  email: string;
-  password: string;
+  title: string;
+  content: string;
+  userId: number;
+  image: string;
 }
 
 @Table({ tableName: 'posts' })
 export class Post extends Model<Post, PostCreationAttrs> {
-  @ApiProperty({ example: '1', description: 'Unique id' })
+  //@ApiProperty({ example: '1', description: 'Unique id' })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -27,7 +27,7 @@ export class Post extends Model<Post, PostCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: 'user@gmail.com', description: 'User email' })
+  //@ApiProperty({ example: 'user@gmail.com', description: 'User email' })
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -35,14 +35,14 @@ export class Post extends Model<Post, PostCreationAttrs> {
   })
   title: string;
 
-  @ApiProperty({ example: '6515434', description: 'User password' })
+  //@ApiProperty({ example: '6515434', description: 'User password' })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   content: string;
 
-  @ApiProperty({ example: 'true', description: 'Is banned' })
+  //@ApiProperty({ example: 'true', description: 'Is banned' })
   @Column({
     type: DataType.STRING,
   })
