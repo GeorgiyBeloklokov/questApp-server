@@ -9,18 +9,27 @@ import {
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
+import { ApiProperty } from '@nestjs/swagger';
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
   ) {}
-
+  @ApiProperty({
+    name: 'token',
+    example: 'dfbgdfbgrgbfgbfgfrgbffgbergfer',
+    description: 'token',
+  })
   async login(userDto: CreateUserDto) {
     const user = await this.validateUser(userDto);
     return this.generateToken(user);
   }
-
+  @ApiProperty({
+    name: 'token',
+    example: 'dfbgdfbgrgbfgbfgfrgbffgbergfer',
+    description: 'token',
+  })
   async registration(userDto: CreateUserDto) {
     const candidate = await this.userService.getUsersByEmail(userDto.email);
     if (candidate) {
