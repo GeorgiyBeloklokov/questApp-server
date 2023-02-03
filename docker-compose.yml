@@ -1,12 +1,6 @@
 version: '3.0'
 
 services:
-  web:
-    build: .
-    links:
-      - "db:database"
-  db:
-    image: postgres
   main:
     container_name: main
     build:
