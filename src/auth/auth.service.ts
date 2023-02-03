@@ -16,6 +16,7 @@ export class AuthService {
     private userService: UsersService,
     private jwtService: JwtService,
   ) {}
+
   @ApiProperty({
     name: 'token',
     example: 'dfbgdfbgrgbfgbfgfrgbffgbergfer',
@@ -25,6 +26,7 @@ export class AuthService {
     const user = await this.validateUser(userDto);
     return this.generateToken(user);
   }
+
   @ApiProperty({
     name: 'token',
     example: 'dfbgdfbgrgbfgbfgfrgbffgbergfer',
@@ -45,6 +47,7 @@ export class AuthService {
     });
     return this.generateToken(user);
   }
+
   private async generateToken(user: User) {
     const payload = {
       email: user.email,

@@ -20,6 +20,7 @@ import { Roles } from 'src/auth/roles-auth.decorator';
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
+
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 200, type: User })
   //@UsePipes(ValidationPipe)
@@ -27,6 +28,7 @@ export class UsersController {
   create(@Body() userDto: CreateUserDto) {
     return this.usersService.createUsers(userDto);
   }
+
   @ApiOperation({ summary: 'Get users' })
   @ApiResponse({ status: 200, type: [User] })
   //@UseGuards(JwtAuthGuard)
