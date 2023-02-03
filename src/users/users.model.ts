@@ -35,14 +35,17 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   email: string;
 
-  @ApiProperty({ example: '6515434', description: 'User password' })
+  @ApiProperty({
+    example: '$2a$05$7JXCJoVfMRRYHSDcabE8feYODKTmZ9n14Emnrz/Et5BMAG5ie66w.',
+    description: 'Encrypted user password',
+  })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   password: string;
 
-  @ApiProperty({ example: 'false', description: 'Not banned' })
+  @ApiProperty({ example: 'true', description: 'Baned' })
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: false,

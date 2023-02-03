@@ -5,6 +5,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { RoleService } from 'src/role/role.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import * as bcrypt from 'bcryptjs';
 
 import { User } from './users.model';
 
@@ -14,11 +15,16 @@ export class UsersService {
     @InjectModel(User) private userRepository: typeof User,
     private roleService: RoleService,
   ) {}
-  async createUsers(dto: CreateUserDto) {
-    const user = await this.userRepository.create(dto);
-    const role = await this.roleService.getRoleByValue('user');
+  async createUsers(dto: CreateUserDto, newUserRole: string) {
+    const hashPassword = await bcrypt.hash(dto.password, 5);
+    const user = await this.userRepository.create({
+      ...dto,
+      password: hashPassword,
+    });
+    const role = await this.roleService.getRoleByValue(newUserRole);
     await user.$set('roles', [role.id]);
     user.roles = [role];
+    user.password = hashPassword;
     return user;
   }
 
@@ -40,7 +46,9 @@ export class UsersService {
     const role = await this.roleService.getRoleByValue(dto.value);
     if (role && user) {
       await user.$add('role', role.id);
-      return dto;
+      console.log(`dto`, role.description);
+
+      return { ...dto, description: role.description };
     }
     throw new HttpException('User or role not exist', HttpStatus.NOT_FOUND);
   }

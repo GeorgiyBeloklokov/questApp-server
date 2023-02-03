@@ -18,7 +18,7 @@ interface PostCreationAttrs {
 
 @Table({ tableName: 'posts' })
 export class Post extends Model<Post, PostCreationAttrs> {
-  //@ApiProperty({ example: '1', description: 'Unique id' })
+  @ApiProperty({ example: '1', description: 'Unique id of post' })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -27,7 +27,7 @@ export class Post extends Model<Post, PostCreationAttrs> {
   })
   id: number;
 
-  //@ApiProperty({ example: 'user@gmail.com', description: 'User email' })
+  @ApiProperty({ example: 'Bill Gates', description: 'Title of post' })
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -35,19 +35,30 @@ export class Post extends Model<Post, PostCreationAttrs> {
   })
   title: string;
 
-  //@ApiProperty({ example: '6515434', description: 'User password' })
+  @ApiProperty({
+    example: 'Hello everyone ...',
+    description: 'Content of post',
+  })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   content: string;
 
-  //@ApiProperty({ example: 'true', description: 'Is banned' })
+  @ApiProperty({
+    example: '3b830bd6-81e5-41e2-99a0-f84e038d153b.jpg',
+    description: 'Image in jpg',
+  })
   @Column({
     type: DataType.STRING,
+    allowNull: true,
   })
   image: string;
 
+  @ApiProperty({
+    example: 'userId',
+    description: 'id of user',
+  })
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,

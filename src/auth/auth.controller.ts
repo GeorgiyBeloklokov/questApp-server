@@ -17,6 +17,7 @@ export class AuthController {
   @ApiResponse({ status: 200, type: AuthService })
   @Post('/registration')
   registration(@Body() userDto: CreateUserDto) {
-    return this.authService.registration(userDto);
+    const newUserRole = 'user';
+    return this.authService.registration(userDto, newUserRole);
   }
 }

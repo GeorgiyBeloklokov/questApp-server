@@ -34,7 +34,7 @@ export class Role extends Model<Role, RoleUserCreationAttrs> {
   value: string;
 
   @ApiProperty({
-    example: 'Administrator',
+    example: 'administrator',
     description: 'User role description',
   })
   @Column({

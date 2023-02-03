@@ -32,7 +32,7 @@ export class AuthService {
     example: 'dfbgdfbgrgbfgbfgfrgbffgbergfer',
     description: 'token',
   })
-  async registration(userDto: CreateUserDto) {
+  async registration(userDto: CreateUserDto, newUserRole: string) {
     const candidate = await this.userService.getUsersByEmail(userDto.email);
     if (candidate) {
       throw new HttpException(
@@ -41,10 +41,13 @@ export class AuthService {
       );
     }
     const hashPassword = await bcrypt.hash(userDto.password, 5);
-    const user = await this.userService.createUsers({
-      ...userDto,
-      password: hashPassword,
-    });
+    const user = await this.userService.createUsers(
+      {
+        ...userDto,
+        password: hashPassword,
+      },
+      newUserRole,
+    );
     return this.generateToken(user);
   }
 
@@ -63,6 +66,7 @@ export class AuthService {
       userDto.password,
       user.password,
     );
+    console.log(`passwordEquals`, userDto.password, user.password);
     if (user && passwordEquals) {
       return user;
     }
