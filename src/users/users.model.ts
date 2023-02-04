@@ -1,3 +1,5 @@
+import { UserQuestions } from './../question/user-questions.model';
+import { Question } from './../question/question.model';
 import { ApiProperty } from '@nestjs/swagger';
 import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { Post } from 'src/posts/posts.model';
@@ -54,6 +56,9 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @BelongsToMany(() => Role, () => UserRoles) //many to many
   roles: Role[];
+
+  @BelongsToMany(() => Question, () => UserQuestions) //many to many
+  questions: Question[];
 
   @HasMany(() => Post)
   posts: Post[];

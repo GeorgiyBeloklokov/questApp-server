@@ -1,3 +1,4 @@
+import { Question } from 'src/question/question.model';
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
@@ -15,6 +16,7 @@ import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { QuestionModule } from './question/question.module';
 import * as path from 'path';
+import { UserQuestions } from './question/user-questions.model';
 
 @Module({
   controllers: [],
@@ -31,7 +33,7 @@ import * as path from 'path';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Post],
+      models: [User, Role, UserRoles, UserQuestions, Post, Question],
       autoLoadModels: true,
     }),
     UsersModule,

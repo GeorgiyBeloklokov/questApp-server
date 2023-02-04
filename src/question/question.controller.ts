@@ -9,10 +9,11 @@ import { QuestionService } from './question.service';
 @Controller('questions')
 export class QuestionController {
   constructor(private questionService: QuestionService) {}
+
   @ApiResponse({ status: 200, type: Question })
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  createPost(@Body() dto: CreateQuestionDto, @UploadedFile() image) {
+  createQuestion(@Body() dto: CreateQuestionDto, @UploadedFile() image) {
     return this.questionService.create(dto, image);
   }
 }

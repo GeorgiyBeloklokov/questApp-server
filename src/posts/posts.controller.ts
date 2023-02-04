@@ -8,6 +8,7 @@ import { Post as Posts } from './posts.model';
 @Controller('posts')
 export class PostsController {
   constructor(private postService: PostsService) {}
+
   @ApiResponse({ status: 200, type: Posts })
   @Post()
   @UseInterceptors(FileInterceptor('image'))

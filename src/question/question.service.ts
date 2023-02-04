@@ -17,10 +17,13 @@ export class QuestionService {
       });
       return question;
     } else {
-      const question = await this.questionRepository.create({
-        ...dto,
-      });
+      const question = await this.questionRepository.create(dto);
       return question;
     }
+  }
+
+  async getQuestionByTitle(title: string) {
+    const question = await this.questionRepository.findOne({ where: { title } });
+    return question;
   }
 }

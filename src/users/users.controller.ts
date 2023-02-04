@@ -1,15 +1,18 @@
+import { Question } from './../question/question.model';
 import { BanUserDto } from './dto/ban-user.dto';
 import { AddRoleDto } from './dto/add-role.dto';
 import { RolesGuard } from './../auth/roles.guard';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './users.model';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { AuthService } from 'src/auth/auth.service';
 import { Role } from 'src/role/role.model';
+import { AddQuestionDto } from './dto/add-question.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 /* import { ValidationPipe } from 'src/pipes/validation.pipe'; */
 @ApiTags('Users')
 @Controller('users')
@@ -25,11 +28,11 @@ export class UsersController {
     return this.usersService.createUsers(userDto, newUserRole);
   }
 
-  @ApiOperation({ summary: 'Get users (access only with admin role)' })
+  @ApiOperation({ summary: 'Get users' })
   @ApiResponse({ status: 200, type: [User] })
   //@UseGuards(JwtAuthGuard)
-  @Roles('admin')
-  @UseGuards(RolesGuard)
+  //@Roles('admin')
+  //@UseGuards(RolesGuard)
   @Get()
   getAll() {
     return this.usersService.getAllUsers();
@@ -43,6 +46,14 @@ export class UsersController {
   @Post('/role')
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);
+  }
+
+  @ApiOperation({ summary: 'Assignment question' }) //(access only with auth)
+  @ApiResponse({ status: 200, type: Question })
+  @Post('/question')
+  @UseInterceptors(FileInterceptor('image'))
+  addQuestion(@Body() dto: AddQuestionDto, @UploadedFile() image) {
+    return this.usersService.addQuestion(dto, image);
   }
 
   @ApiOperation({ summary: 'Ban user (access only with admin role)' })
