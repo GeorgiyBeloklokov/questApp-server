@@ -17,10 +17,7 @@ export class FilesService {
       fs.writeFileSync(path.join(filePath, fileName), file.buffer);
       return fileName;
     } catch (error) {
-      throw new HttpException(
-        'An error occurred while writing the file',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException('An error occurred while writing the file', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

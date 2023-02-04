@@ -1,12 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  BelongsToMany,
-  Column,
-  DataType,
-  HasMany,
-  Model,
-  Table,
-} from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { Post } from 'src/posts/posts.model';
 import { Role } from 'src/role/role.model';
 import { UserRoles } from 'src/role/user-roles.model';

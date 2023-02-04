@@ -11,10 +11,7 @@ import { User } from './users.model';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel(User) private userRepository: typeof User,
-    private roleService: RoleService,
-  ) {}
+  constructor(@InjectModel(User) private userRepository: typeof User, private roleService: RoleService) {}
   async createUsers(dto: CreateUserDto, newUserRole: string) {
     const hashPassword = await bcrypt.hash(dto.password, 5);
     const user = await this.userRepository.create({

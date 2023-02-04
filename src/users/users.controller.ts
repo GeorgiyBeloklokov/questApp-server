@@ -3,14 +3,7 @@ import { AddRoleDto } from './dto/add-role.dto';
 import { RolesGuard } from './../auth/roles.guard';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  UseGuards,
-  UsePipes,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './users.model';
@@ -21,10 +14,7 @@ import { Role } from 'src/role/role.model';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(
-    private usersService: UsersService,
-    private authService: AuthService,
-  ) {}
+  constructor(private usersService: UsersService, private authService: AuthService) {}
 
   @ApiOperation({ summary: 'Create user with admin role' })
   @ApiResponse({ status: 200, type: User })

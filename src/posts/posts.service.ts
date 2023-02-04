@@ -6,10 +6,7 @@ import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class PostsService {
-  constructor(
-    @InjectModel(Post) private postRepository: typeof Post,
-    private fileService: FilesService,
-  ) {}
+  constructor(@InjectModel(Post) private postRepository: typeof Post, private fileService: FilesService) {}
 
   async create(dto: CreatePostDto, image: any) {
     if (image) {
@@ -26,7 +23,5 @@ export class PostsService {
       });
       return post;
     }
-
-    //return post;
   }
 }
