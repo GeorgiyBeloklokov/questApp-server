@@ -8,8 +8,6 @@ import { RoleModule } from './role/role.module';
 import { Role } from './role/role.model';
 import { UserRoles } from './role/user-roles.model';
 import { AuthModule } from './auth/auth.module';
-import { PostsService } from './posts/posts.service';
-import { PostsController } from './posts/posts.controller';
 import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/posts.model';
 import { FilesModule } from './files/files.module';

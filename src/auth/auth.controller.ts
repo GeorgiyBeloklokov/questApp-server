@@ -13,7 +13,7 @@ export class AuthController {
   login(@Body() userDto: CreateUserDto) {
     return this.authService.login(userDto);
   }
-  @ApiOperation({ summary: 'Registration' })
+  @ApiOperation({ summary: 'Registration (create user whit user role)' })
   @ApiResponse({ status: 200, type: AuthService })
   @Post('/registration')
   registration(@Body() userDto: CreateUserDto) {

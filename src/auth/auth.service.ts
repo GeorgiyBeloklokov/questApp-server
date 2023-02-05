@@ -35,7 +35,7 @@ export class AuthService {
         ...userDto,
         password: hashPassword,
       },
-      newUserRole,
+      newUserRole
     );
     return this.generateToken(user);
   }

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { FilesService } from 'src/files/files.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
-
 import { Question } from './question.model';
 
 @Injectable()

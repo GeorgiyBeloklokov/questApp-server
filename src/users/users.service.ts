@@ -7,7 +7,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import { RoleService } from 'src/role/role.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
-
 import { User } from './users.model';
 import { AddQuestionDto } from './dto/add-question.dto';
 
@@ -16,7 +15,7 @@ export class UsersService {
   constructor(
     @InjectModel(User) private userRepository: typeof User,
     private roleService: RoleService,
-    private questionService: QuestionService,
+    private questionService: QuestionService
   ) {}
   async createUsers(dto: CreateUserDto, newUserRole: string) {
     const hashPassword = await bcrypt.hash(dto.password, 5);
@@ -60,7 +59,6 @@ export class UsersService {
     const role = await this.roleService.getRoleByValue(dto.value);
     if (role && user) {
       await user.$add('role', role.id);
-      //console.log(`dto`, role.description);
 
       return { ...dto, description: role.description };
     }
@@ -70,7 +68,7 @@ export class UsersService {
   async addQuestion(dto: AddQuestionDto, image) {
     const user = await this.userRepository.findByPk(dto.userId);
     const question = await this.questionService.getQuestionByTitle(dto.title);
-    //console.log(`test =>>>>>>>>>>>>>>>>>>>>>`, question);
+
     if (question && user) {
       await user.$add('questions', question.id);
       return dto;

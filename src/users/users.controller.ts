@@ -13,7 +13,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { Role } from 'src/role/role.model';
 import { AddQuestionDto } from './dto/add-question.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-/* import { ValidationPipe } from 'src/pipes/validation.pipe'; */
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -21,16 +21,16 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Create user with admin role' })
   @ApiResponse({ status: 200, type: User })
-  //@UsePipes(ValidationPipe)
+  @UsePipes(ValidationPipe)
   @Post()
   create(@Body() userDto: CreateUserDto) {
     const newUserRole = 'admin';
     return this.usersService.createUsers(userDto, newUserRole);
   }
 
-  @ApiOperation({ summary: 'Get users' })
+  @ApiOperation({ summary: 'Get users' }) //(access only with auth)
   @ApiResponse({ status: 200, type: [User] })
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   //@Roles('admin')
   //@UseGuards(RolesGuard)
   @Get()
@@ -38,9 +38,9 @@ export class UsersController {
     return this.usersService.getAllUsers();
   }
 
-  @ApiOperation({ summary: 'Assignment roles (access only with admin role)' })
+  @ApiOperation({ summary: 'Assignment roles (access only with auth and admin role)' }) //(access only with admin role)
   @ApiResponse({ status: 200, type: Role })
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Roles('admin')
   @UseGuards(RolesGuard)
   @Post('/role')
