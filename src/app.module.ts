@@ -15,6 +15,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { QuestionModule } from './question/question.module';
 import * as path from 'path';
 import { UserQuestions } from './question/user-questions.model';
+import { AnswerModule } from './answer/answer.module';
+import { Answer } from './answer/answer.model';
+import { QuestionAnswers } from './answer/question-answers.model';
 
 @Module({
   controllers: [],
@@ -31,7 +34,7 @@ import { UserQuestions } from './question/user-questions.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, UserQuestions, Post, Question],
+      models: [User, Role, UserRoles, UserQuestions, Post, Question, Answer, QuestionAnswers],
       autoLoadModels: true,
     }),
     UsersModule,
@@ -40,6 +43,7 @@ import { UserQuestions } from './question/user-questions.model';
     PostsModule,
     FilesModule,
     QuestionModule,
+    AnswerModule,
   ],
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import { Answer } from 'src/answer/answer.model';
 import { Module } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { QuestionController } from './question.controller';
@@ -6,11 +7,12 @@ import { Question } from './question.model';
 import { User } from 'src/users/users.model';
 import { UserQuestions } from './user-questions.model';
 import { FilesModule } from 'src/files/files.module';
+import { QuestionAnswers } from 'src/answer/question-answers.model';
 
 @Module({
   providers: [QuestionService],
   controllers: [QuestionController],
-  imports: [SequelizeModule.forFeature([Question, User, UserQuestions]), FilesModule],
+  imports: [SequelizeModule.forFeature([Question, User, UserQuestions, Answer, QuestionAnswers]), FilesModule],
   exports: [QuestionService],
 })
 export class QuestionModule {}

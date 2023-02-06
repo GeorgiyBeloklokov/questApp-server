@@ -11,13 +11,17 @@ import { Post } from 'src/posts/posts.model';
 import { UserQuestions } from 'src/question/user-questions.model';
 import { Question } from 'src/question/question.model';
 import { QuestionModule } from 'src/question/question.module';
+import { Answer } from 'src/answer/answer.model';
+import { QuestionAnswers } from 'src/answer/question-answers.model';
+import { AnswerModule } from 'src/answer/answer.module';
 
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
   imports: [
-    SequelizeModule.forFeature([User, Role, UserRoles, UserQuestions, Post, Question]),
+    SequelizeModule.forFeature([User, Role, UserRoles, UserQuestions, Post, Question, Answer, QuestionAnswers]),
     RoleModule,
+    AnswerModule,
     QuestionModule,
     forwardRef(() => AuthModule),
   ],
