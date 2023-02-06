@@ -1,10 +1,11 @@
+import { Answer } from 'src/answer/answer.model';
 import { Question } from './../question/question.model';
 import { BanUserDto } from './dto/ban-user.dto';
 import { AddRoleDto } from './dto/add-role.dto';
 import { RolesGuard } from './../auth/roles.guard';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './users.model';
@@ -14,6 +15,7 @@ import { Role } from 'src/role/role.model';
 import { AddQuestionDto } from './dto/add-question.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { AddAnswerDto } from './dto/add-answer.dto';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -28,7 +30,7 @@ export class UsersController {
     return this.usersService.createUsers(userDto, newUserRole);
   }
 
-  @ApiOperation({ summary: 'Get users' }) //(access only with auth)
+  @ApiOperation({ summary: 'Get users (access only with auth)' })
   @ApiResponse({ status: 200, type: [User] })
   @UseGuards(JwtAuthGuard)
   //@Roles('admin')
@@ -48,12 +50,23 @@ export class UsersController {
     return this.usersService.addRole(dto);
   }
 
-  @ApiOperation({ summary: 'Assignment question' }) //(access only with auth)
+  @ApiOperation({ summary: 'Assignment question (access only with auth)' }) //(access only with auth)
   @ApiResponse({ status: 200, type: Question })
+  @UseGuards(JwtAuthGuard)
   @Post('/question')
   @UseInterceptors(FileInterceptor('image'))
   addQuestion(@Body() dto: AddQuestionDto, @UploadedFile() image) {
     return this.usersService.addQuestion(dto, image);
+  }
+
+  @ApiOperation({ summary: 'Assignment answers (access only with auth)' })
+  @ApiResponse({ status: 200, type: Answer })
+  @UseGuards(JwtAuthGuard)
+  //@Roles('admin')
+  //@UseGuards(RolesGuard)
+  @Post('/answer')
+  addAnswer(@Body() dto: AddAnswerDto) {
+    return this.usersService.addAnswer(dto);
   }
 
   @ApiOperation({ summary: 'Ban user (access only with admin role)' })

@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BelongsToMany, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
-import { Question } from 'src/question/question.model';
+import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/users/users.model';
-import { QuestionAnswers } from './question-answers.model';
+import { QuestionAnswers } from './user-answers.model';
 
 interface PostCreationAttrs {
   title: string;
@@ -23,7 +22,7 @@ export class Answer extends Model<Answer, PostCreationAttrs> {
   @ApiProperty({ example: 'Bill Gates', description: 'Title of answer' })
   @Column({
     type: DataType.STRING,
-    unique: true,
+    //unique: true,
     //allowNull: false,
   })
   title: string;
@@ -38,16 +37,6 @@ export class Answer extends Model<Answer, PostCreationAttrs> {
   })
   isCorrect: boolean;
 
-  /*  @ApiProperty({
-    example: 'userId',
-    description: 'id of user',
-  })
-  @ForeignKey(() => Answer)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  answerId: number; */
-
-  @BelongsToMany(() => Question, () => QuestionAnswers)
-  questions: Question[];
+  @BelongsToMany(() => User, () => QuestionAnswers)
+  users: User[];
 }

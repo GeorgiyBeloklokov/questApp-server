@@ -17,6 +17,6 @@ export class AnswerController {
   @ApiResponse({ status: 200, type: Answer })
   @Get('/:value')
   getByValue(@Param('value') value: string) {
-    return this.answerService.getRoleByValue(value);
+    return this.answerService.getAnswerByValue(value);
   }
 }

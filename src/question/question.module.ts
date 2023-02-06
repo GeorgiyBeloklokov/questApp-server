@@ -7,12 +7,12 @@ import { Question } from './question.model';
 import { User } from 'src/users/users.model';
 import { UserQuestions } from './user-questions.model';
 import { FilesModule } from 'src/files/files.module';
-import { QuestionAnswers } from 'src/answer/question-answers.model';
+import { QuestionAnswers } from 'src/answer/user-answers.model';
 
 @Module({
   providers: [QuestionService],
   controllers: [QuestionController],
-  imports: [SequelizeModule.forFeature([Question, User, UserQuestions, Answer, QuestionAnswers]), FilesModule],
+  imports: [SequelizeModule.forFeature([Question, User, UserQuestions]), FilesModule],
   exports: [QuestionService],
 })
 export class QuestionModule {}

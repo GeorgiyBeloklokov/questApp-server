@@ -1,3 +1,4 @@
+import { Answer } from 'src/answer/answer.model';
 import { UserQuestions } from './../question/user-questions.model';
 import { Question } from './../question/question.model';
 import { ApiProperty } from '@nestjs/swagger';
@@ -5,6 +6,7 @@ import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequeliz
 import { Post } from 'src/posts/posts.model';
 import { Role } from 'src/role/role.model';
 import { UserRoles } from 'src/role/user-roles.model';
+import { QuestionAnswers } from 'src/answer/user-answers.model';
 
 interface UserCreationAttrs {
   email: string;
@@ -59,6 +61,9 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @BelongsToMany(() => Question, () => UserQuestions) //many to many
   questions: Question[];
+
+  @BelongsToMany(() => Answer, () => QuestionAnswers) //many to many
+  answers: Answer[];
 
   @HasMany(() => Post)
   posts: Post[];

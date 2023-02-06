@@ -9,13 +9,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
 import { User } from './users.model';
 import { AddQuestionDto } from './dto/add-question.dto';
+import { AddAnswerDto } from './dto/add-answer.dto';
+import { AnswerService } from 'src/answer/answer.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User) private userRepository: typeof User,
     private roleService: RoleService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private answerService: AnswerService
   ) {}
   async createUsers(dto: CreateUserDto, newUserRole: string) {
     const hashPassword = await bcrypt.hash(dto.password, 5);
@@ -63,6 +66,21 @@ export class UsersService {
       return { ...dto, description: role.description };
     }
     throw new HttpException('User or role not exist', HttpStatus.NOT_FOUND);
+  }
+
+  async addAnswer(dto: AddAnswerDto) {
+    const user = await this.userRepository.findByPk(dto.userId);
+    const answer = await this.answerService.getAnswerByValue(dto.title);
+    if (answer && user) {
+      await user.$add('answer', answer.id);
+
+      return { dto };
+    } else if (!answer && user) {
+      const newAnswer = await this.answerService.createAnswer(dto);
+      await user.$add('answer', newAnswer.id);
+      return dto;
+    }
+    throw new HttpException('User or answer not exist', HttpStatus.NOT_FOUND);
   }
 
   async addQuestion(dto: AddQuestionDto, image) {

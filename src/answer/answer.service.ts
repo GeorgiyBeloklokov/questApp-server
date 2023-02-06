@@ -11,9 +11,9 @@ export class AnswerService {
     return answer;
   }
 
-  async getRoleByValue(value: string) {
+  async getAnswerByValue(title: string) {
     //console.log(`value =>>>>>>>>>>>`, value);
-    const answer = await this.answerRepository.findOne({ where: { value } });
+    const answer = await this.answerRepository.findOne({ where: { title } });
     return answer;
   }
 }

@@ -17,7 +17,7 @@ import * as path from 'path';
 import { UserQuestions } from './question/user-questions.model';
 import { AnswerModule } from './answer/answer.module';
 import { Answer } from './answer/answer.model';
-import { QuestionAnswers } from './answer/question-answers.model';
+import { QuestionAnswers } from './answer/user-answers.model';
 
 @Module({
   controllers: [],
