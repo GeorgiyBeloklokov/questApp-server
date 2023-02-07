@@ -11,7 +11,6 @@ import { User } from './users.model';
 import { AddQuestionDto } from './dto/add-question.dto';
 import { AddAnswerDto } from './dto/add-answer.dto';
 import { AnswerService } from 'src/answer/answer.service';
-import { AddFullQuestionDto } from './dto/add-fullquestion.dto';
 
 @Injectable()
 export class UsersService {
@@ -50,6 +49,15 @@ export class UsersService {
     return user;
   }
 
+  async getAllQuestions() {
+    const questions = await this.questionService.getQuestions();
+    return questions;
+  }
+  async getAllAnswers() {
+    const answers = await this.answerService.getAnswers();
+    return answers;
+  }
+
   async getUsersByEmail(email: string) {
     const user = await this.userRepository.findOne({
       where: { email },
@@ -71,19 +79,10 @@ export class UsersService {
 
   async addAnswer(dto: AddAnswerDto) {
     const user = await this.userRepository.findByPk(dto.userId);
-    const answer = await this.answerService.getAnswerByValue(dto.title);
-    //console.log(`test answer =>>>>>>>>>>>`, answer);
+    const answer = await this.answerService.createAnswer(dto);
 
     if (answer && user) {
       await user.$add('answer', answer.id);
-      /* user.answers = [answer];
-      await user.save(); */
-
-      return dto;
-    } else if (!answer && user) {
-      const newAnswer = await this.answerService.createAnswer(dto);
-      await user.$add('answer', newAnswer.id);
-
       return dto;
     }
     throw new HttpException('User or answer not exist', HttpStatus.NOT_FOUND);
@@ -114,23 +113,4 @@ export class UsersService {
     await user.save();
     return user;
   }
-
-  /* async addFullQuestion(dto: AddFullQuestionDto, image) {
-    const user = await this.userRepository.findByPk(dto.userId);
-    const question = await this.questionService.create(
-      {
-        title: dto.titleQuestion,
-        description: dto.textQuestion,
-      },
-      image
-    );
-    const answer = await this.answerService.createAnswer({ title: dto.titleAnswer, isCorrect: dto.isCorrect });
-
-    if (user) {
-      await user.$add('questions', question.id);
-      await user.$add('answers', answer.id);
-      return dto;
-    }
-    throw new HttpException('User or question not exist', HttpStatus.NOT_FOUND);
-  } */
 }

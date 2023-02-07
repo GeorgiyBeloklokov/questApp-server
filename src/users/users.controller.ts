@@ -1,22 +1,21 @@
-import { Answer } from 'src/answer/answer.model';
-import { Question } from './../question/question.model';
-import { BanUserDto } from './dto/ban-user.dto';
-import { AddRoleDto } from './dto/add-role.dto';
-import { RolesGuard } from './../auth/roles.guard';
-import { JwtAuthGuard } from './../auth/jwt-auth.guard';
-import { CreateUserDto } from './dto/create-user.dto';
-import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from './users.model';
-import { Roles } from 'src/auth/roles-auth.decorator';
-import { AuthService } from 'src/auth/auth.service';
-import { Role } from 'src/role/role.model';
-import { AddQuestionDto } from './dto/add-question.dto';
+import { Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Answer } from 'src/answer/answer.model';
+import { AuthService } from 'src/auth/auth.service';
+import { Roles } from 'src/auth/roles-auth.decorator';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { Role } from 'src/role/role.model';
+import { JwtAuthGuard } from './../auth/jwt-auth.guard';
+import { RolesGuard } from './../auth/roles.guard';
+import { Question } from './../question/question.model';
 import { AddAnswerDto } from './dto/add-answer.dto';
-import { AddFullQuestionDto } from './dto/add-fullquestion.dto';
+import { AddQuestionDto } from './dto/add-question.dto';
+import { AddRoleDto } from './dto/add-role.dto';
+import { BanUserDto } from './dto/ban-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { User } from './users.model';
+import { UsersService } from './users.service';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -39,6 +38,26 @@ export class UsersController {
   @Get()
   getAll() {
     return this.usersService.getAllUsers();
+  }
+
+  @ApiOperation({ summary: 'Get questions' })
+  @ApiResponse({ status: 200, type: [Question] })
+  //@UseGuards(JwtAuthGuard)
+  //@Roles('admin')
+  //@UseGuards(RolesGuard)
+  @Get('/questions')
+  getAllQuestions() {
+    return this.usersService.getAllQuestions();
+  }
+
+  @ApiOperation({ summary: 'Get answers' })
+  @ApiResponse({ status: 200, type: [Answer] })
+  //@UseGuards(JwtAuthGuard)
+  //@Roles('admin')
+  //@UseGuards(RolesGuard)
+  @Get('/answers')
+  getAllAnswers() {
+    return this.usersService.getAllAnswers();
   }
 
   @ApiOperation({ summary: 'Assignment roles (access only with auth and admin role)' }) //(access only with admin role)

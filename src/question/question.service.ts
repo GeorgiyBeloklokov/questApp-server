@@ -25,4 +25,9 @@ export class QuestionService {
     const question = await this.questionRepository.findOne({ where: { title } });
     return question;
   }
+
+  async getQuestions() {
+    const questions = await this.questionRepository.findAll({ include: { all: true } });
+    return questions;
+  }
 }

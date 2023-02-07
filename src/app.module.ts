@@ -17,7 +17,6 @@ import * as path from 'path';
 import { UserQuestions } from './question/user-questions.model';
 import { AnswerModule } from './answer/answer.module';
 import { Answer } from './answer/answer.model';
-import { QuestionAnswers } from './answer/user-answers.model';
 
 @Module({
   controllers: [],
@@ -34,7 +33,7 @@ import { QuestionAnswers } from './answer/user-answers.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, UserQuestions, Post, Question, Answer, QuestionAnswers],
+      models: [User, Role, UserRoles, UserQuestions, Post, Question, Answer],
       autoLoadModels: true,
     }),
     UsersModule,

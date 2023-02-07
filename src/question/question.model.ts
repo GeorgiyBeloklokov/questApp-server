@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
-import { Answer } from 'src/answer/answer.model';
-import { QuestionAnswers } from 'src/answer/user-answers.model';
+
 import { User } from 'src/users/users.model';
 import { UserQuestions } from './user-questions.model';
 
@@ -54,7 +53,4 @@ export class Question extends Model<Question, QuestionCreationAttrs> {
 
   @BelongsToMany(() => User, () => UserQuestions)
   users: User[];
-
-  @BelongsToMany(() => Answer, () => QuestionAnswers) //many to many
-  answers: Answer[];
 }
