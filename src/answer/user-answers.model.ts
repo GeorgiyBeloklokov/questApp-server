@@ -1,4 +1,5 @@
 import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Question } from 'src/question/question.model';
 import { User } from 'src/users/users.model';
 import { Answer } from './answer.model';
 
@@ -18,11 +19,11 @@ export class QuestionAnswers extends Model<QuestionAnswers> {
   })
   answerId: number;
 
-  /*   @ForeignKey(() => Question)
+  @ForeignKey(() => Question)
   @Column({
     type: DataType.INTEGER,
   })
-  questionId: number; */
+  questionId: number;
 
   @ForeignKey(() => User)
   @Column({

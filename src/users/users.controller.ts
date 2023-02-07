@@ -56,7 +56,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Post('/question')
   @UseInterceptors(FileInterceptor('image'))
-  addQuestion(@Body() dto: AddQuestionDto[], @UploadedFile() image) {
+  addQuestion(@Body() dto: AddQuestionDto, @UploadedFile() image) {
     return this.usersService.addQuestion(dto, image);
   }
 

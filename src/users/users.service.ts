@@ -72,37 +72,36 @@ export class UsersService {
   async addAnswer(dto: AddAnswerDto) {
     const user = await this.userRepository.findByPk(dto.userId);
     const answer = await this.answerService.getAnswerByValue(dto.title);
+    //console.log(`test answer =>>>>>>>>>>>`, answer);
+
     if (answer && user) {
       await user.$add('answer', answer.id);
+      /* user.answers = [answer];
+      await user.save(); */
 
-      return { dto };
+      return dto;
     } else if (!answer && user) {
       const newAnswer = await this.answerService.createAnswer(dto);
       await user.$add('answer', newAnswer.id);
+
       return dto;
     }
     throw new HttpException('User or answer not exist', HttpStatus.NOT_FOUND);
   }
 
-  async addQuestion(dto: AddQuestionDto[], image) {
-    const newDto = dto.map(async (item) => {
-      const user = await this.userRepository.findByPk(item.userId);
-      const question = await this.questionService.getQuestionByTitle(item.title);
+  async addQuestion(dto: AddQuestionDto, image) {
+    const user = await this.userRepository.findByPk(dto.userId);
+    const question = await this.questionService.getQuestionByTitle(dto.title);
 
-      if (question && user) {
-        await user.$add('questions', question.id);
-        return dto;
-      } else if (!question && user) {
-        const newQuestion = await this.questionService.create(
-          { title: item.title, description: item.description },
-          image
-        );
-        await user.$add('questions', newQuestion.id);
-        return dto;
-      }
-      throw new HttpException('User or question not exist', HttpStatus.NOT_FOUND);
-    });
-    return newDto;
+    if (question && user) {
+      await user.$add('questions', question.id);
+      return dto;
+    } else if (!question && user) {
+      const newQuestion = await this.questionService.create({ title: dto.title, description: dto.description }, image);
+      await user.$add('questions', newQuestion.id);
+      return dto;
+    }
+    throw new HttpException('User or question not exist', HttpStatus.NOT_FOUND);
   }
 
   async ban(dto: BanUserDto) {

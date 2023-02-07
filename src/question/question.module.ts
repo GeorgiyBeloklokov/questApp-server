@@ -8,6 +8,7 @@ import { User } from 'src/users/users.model';
 import { UserQuestions } from './user-questions.model';
 import { FilesModule } from 'src/files/files.module';
 import { QuestionAnswers } from 'src/answer/user-answers.model';
+import { AnswerModule } from 'src/answer/answer.module';
 
 @Module({
   providers: [QuestionService],

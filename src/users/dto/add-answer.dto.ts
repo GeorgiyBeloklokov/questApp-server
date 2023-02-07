@@ -1,17 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class AddAnswerDto {
   @ApiProperty({
     example: 'Bill gates says..',
     description: 'Title of answer, should be a string',
   })
+  @IsString({ message: 'Should de a string' })
   readonly title: string;
 
   @ApiProperty({
     example: 'true',
     description: 'Value of response answer, should be a boolean',
   })
+  @IsBoolean({ message: 'Should de a boolean' })
   readonly isCorrect: boolean;
 
   @ApiProperty({
@@ -21,10 +23,10 @@ export class AddAnswerDto {
   @IsNumber({}, { message: 'Should de a number' })
   readonly userId: number;
 
-  /*  @ApiProperty({
+  @ApiProperty({
     example: 2,
     description: 'id of question for add answer',
   })
   @IsNumber({}, { message: 'Should de a number' })
-  readonly questionId: number; */
+  readonly questionId: number;
 }

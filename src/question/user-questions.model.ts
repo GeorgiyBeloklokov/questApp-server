@@ -1,4 +1,5 @@
 import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Answer } from 'src/answer/answer.model';
 import { User } from 'src/users/users.model';
 import { Question } from './question.model';
 

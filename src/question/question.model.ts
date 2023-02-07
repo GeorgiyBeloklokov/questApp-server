@@ -55,6 +55,6 @@ export class Question extends Model<Question, QuestionCreationAttrs> {
   @BelongsToMany(() => User, () => UserQuestions)
   users: User[];
 
-  /* @BelongsToMany(() => Answer, () => QuestionAnswers) //many to many
-  answers: Answer[]; */
+  @BelongsToMany(() => Answer, () => QuestionAnswers) //many to many
+  answers: Answer[];
 }

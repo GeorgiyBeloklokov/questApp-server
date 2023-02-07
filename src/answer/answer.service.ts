@@ -7,6 +7,7 @@ import { CreateAnswerDto } from './dto/create-answer.dto';
 export class AnswerService {
   constructor(@InjectModel(Answer) private answerRepository: typeof Answer) {}
   async createAnswer(dto: CreateAnswerDto) {
+    //console.log(`value =>>>>>>>>>>>`, dto);
     const answer = await this.answerRepository.create(dto);
     return answer;
   }
