@@ -85,7 +85,7 @@ export class UsersController {
   //@Roles('admin')
   //@UseGuards(RolesGuard)
   @Post('/answer')
-  addAnswer(@Body() dto: AddAnswerDto) {
+  addAnswer(@Body() dto: AddAnswerDto[]) {
     return this.usersService.addAnswer(dto);
   }
 

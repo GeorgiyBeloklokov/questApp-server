@@ -77,15 +77,18 @@ export class UsersService {
     throw new HttpException('User or role not exist', HttpStatus.NOT_FOUND);
   }
 
-  async addAnswer(dto: AddAnswerDto) {
-    const user = await this.userRepository.findByPk(dto.userId);
-    const answer = await this.answerService.createAnswer(dto);
+  async addAnswer(dto: AddAnswerDto[]) {
+    const newDto = dto.map(async (item) => {
+      const user = await this.userRepository.findByPk(item.userId);
+      const answer = await this.answerService.createAnswer(item);
 
-    if (answer && user) {
-      await user.$add('answer', answer.id);
-      return dto;
-    }
-    throw new HttpException('User or answer not exist', HttpStatus.NOT_FOUND);
+      if (answer && user) {
+        await user.$add('answer', answer.id);
+        return dto;
+      }
+      throw new HttpException('User or answer not exist', HttpStatus.NOT_FOUND);
+    });
+    return newDto;
   }
 
   async addQuestion(dto: AddQuestionDto, image) {
