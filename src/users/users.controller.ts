@@ -16,6 +16,7 @@ import { AddQuestionDto } from './dto/add-question.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { AddAnswerDto } from './dto/add-answer.dto';
+import { AddFullQuestionDto } from './dto/add-fullquestion.dto';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -55,7 +56,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Post('/question')
   @UseInterceptors(FileInterceptor('image'))
-  addQuestion(@Body() dto: AddQuestionDto, @UploadedFile() image) {
+  addQuestion(@Body() dto: AddQuestionDto[], @UploadedFile() image) {
     return this.usersService.addQuestion(dto, image);
   }
 
@@ -78,4 +79,13 @@ export class UsersController {
   ban(@Body() dto: BanUserDto) {
     return this.usersService.ban(dto);
   }
+
+  /* @ApiOperation({ summary: 'Assignment fullquestion (access only with auth)' })
+  @ApiResponse({ status: 200, type: AddFullQuestionDto })
+  //@UseGuards(JwtAuthGuard)
+  @Post('/fullquestion')
+  @UseInterceptors(FileInterceptor('image'))
+  addFullQuestion(@Body() dto: AddFullQuestionDto, @UploadedFile() image) {
+    return this.usersService.addFullQuestion(dto, image);
+  } */
 }
