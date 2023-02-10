@@ -79,7 +79,7 @@ export class UsersController {
     return this.usersService.addQuestion(dto, image);
   }
 
-  @ApiOperation({ summary: 'Assignment answers (access only with auth)' })
+  @ApiOperation({ summary: 'Assignment answer (access only with auth)' })
   @ApiResponse({ status: 200, type: Answer })
   @UseGuards(JwtAuthGuard)
   //@Roles('admin')

@@ -36,7 +36,7 @@ export class User extends Model<User, UserCreationAttrs> {
     description: 'Encrypted user password',
   })
   @Column({
-    type: DataType.STRING,
+    type: DataType.STRING(60),
     allowNull: false,
   })
   password: string;
