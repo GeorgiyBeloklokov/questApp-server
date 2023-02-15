@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class CreateQuestionDto {
+export class UpdateQuestionDto {
   @ApiProperty({
     example: 'Bill Gates',
     description: 'Description of question',
@@ -7,7 +7,7 @@ export class CreateQuestionDto {
   readonly description: string;
 
   @ApiProperty({
-    example: 'dfbggrgsgfb.jpg',
+    example: 'Hello everyone ...',
     description: 'Link of image',
   })
   readonly image: string;

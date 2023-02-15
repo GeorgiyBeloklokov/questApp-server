@@ -21,7 +21,7 @@ export class Question extends Model<Question, QuestionCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({
+  /*   @ApiProperty({
     example: 'Question one ..',
     description: 'Title of question',
   })
@@ -29,7 +29,7 @@ export class Question extends Model<Question, QuestionCreationAttrs> {
     type: DataType.STRING,
     allowNull: true,
   })
-  title: string;
+  title: string; */
 
   @ApiProperty({
     example: 'What is ...',

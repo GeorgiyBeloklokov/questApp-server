@@ -1,10 +1,22 @@
-import { Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Answer } from 'src/answer/answer.model';
 import { AuthService } from 'src/auth/auth.service';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { UpdateQuestionDto } from 'src/question/dto/update-question.dto';
 import { Role } from 'src/role/role.model';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { RolesGuard } from './../auth/roles.guard';
@@ -70,13 +82,20 @@ export class UsersController {
     return this.usersService.addRole(dto);
   }
 
-  @ApiOperation({ summary: 'Assignment question (access only with auth)' }) //(access only with auth)
+  /*  @ApiOperation({ summary: 'Assignment question (access only with auth)' }) //(access only with auth)
   @ApiResponse({ status: 200, type: Question })
   @UseGuards(JwtAuthGuard)
   @Post('/question')
   @UseInterceptors(FileInterceptor('image'))
   addQuestion(@Body() dto: AddQuestionDto, @UploadedFile() image) {
     return this.usersService.addQuestion(dto, image);
+  } */
+  @ApiOperation({ summary: 'Assignment question (access only with auth)' }) //(access only with auth)
+  @ApiResponse({ status: 200, type: Question })
+  @UseGuards(JwtAuthGuard)
+  @Post('/question')
+  addQuestion(@Body() dto: AddQuestionDto[]) {
+    return this.usersService.addQuestion(dto);
   }
 
   @ApiOperation({ summary: 'Assignment answer (access only with auth)' })
@@ -97,6 +116,20 @@ export class UsersController {
   @Post('/ban')
   ban(@Body() dto: BanUserDto) {
     return this.usersService.ban(dto);
+  }
+
+  @ApiOperation({ summary: 'Update question' })
+  @ApiResponse({ status: 200, type: Question })
+  //@UseGuards(JwtAuthGuard)
+  //@Roles('admin')
+  //@UseGuards(RolesGuard)
+  @Put(':email/question/:questionId')
+  updateQuestion(
+    @Param('email') email: string,
+    @Param('questionId') questionId: string,
+    @Body() dto: UpdateQuestionDto
+  ) {
+    return this.usersService.updateQuestion(email, questionId, dto);
   }
 
   /* @ApiOperation({ summary: 'Assignment fullquestion (access only with auth)' })

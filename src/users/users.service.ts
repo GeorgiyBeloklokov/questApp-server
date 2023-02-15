@@ -11,6 +11,7 @@ import { User } from './users.model';
 import { AddQuestionDto } from './dto/add-question.dto';
 import { AddAnswerDto } from './dto/add-answer.dto';
 import { AnswerService } from 'src/answer/answer.service';
+import { UpdateQuestionDto } from 'src/question/dto/update-question.dto';
 
 @Injectable()
 export class UsersService {
@@ -78,32 +79,72 @@ export class UsersService {
   }
 
   async addAnswer(dto: AddAnswerDto[]) {
-    const newDto = dto.map(async (item) => {
+    dto.map(async (item) => {
       const user = await this.userRepository.findByPk(item.userId);
-      const answer = await this.answerService.createAnswer(item);
+      const answer = await this.answerService.getAnswerByValue(item.title);
 
       if (answer && user) {
         await user.$add('answer', answer.id);
+        await user.save();
+        return dto;
+      } else if (!answer && user) {
+        const newAnswer = await this.answerService.createAnswer({ title: item.title, isCorrect: item.isCorrect });
+        await user.$add('questions', newAnswer.id);
+        await user.save();
         return dto;
       }
       throw new HttpException('User or answer not exist', HttpStatus.NOT_FOUND);
     });
-    return newDto;
   }
 
-  async addQuestion(dto: AddQuestionDto, image) {
+  /* async addQuestion(dto: AddQuestionDto, image) {
     const user = await this.userRepository.findByPk(dto.userId);
-    const question = await this.questionService.getQuestionByTitle(dto.title);
+    const question = await this.questionService.getQuestionByTitle(dto.description);
 
     if (question && user) {
       await user.$add('questions', question.id);
       return dto;
     } else if (!question && user) {
-      const newQuestion = await this.questionService.create({ title: dto.title, description: dto.description }, image);
+      const newQuestion = await this.questionService.create({ image: dto.image, description: dto.description }, image);
       await user.$add('questions', newQuestion.id);
       return dto;
     }
     throw new HttpException('User or question not exist', HttpStatus.NOT_FOUND);
+  } */
+
+  /* async addQuestion(dto: AddQuestionDto) {
+    const user = await this.userRepository.findByPk(dto.userId);
+    const question = await this.questionService.getQuestionByTitle(dto.description);
+
+    if (question && user) {
+      await user.$add('questions', question.id);
+      return dto;
+    } else if (!question && user) {
+      const newQuestion = await this.questionService.createQuestion({ image: dto.image, description: dto.description });
+      await user.$add('questions', newQuestion.id);
+      return dto;
+    }
+    throw new HttpException('User or question not exist', HttpStatus.NOT_FOUND);
+  } */
+  async addQuestion(dto: AddQuestionDto[]) {
+    dto.map(async (item) => {
+      const user = await this.userRepository.findByPk(item.userId);
+
+      if (user) {
+        const question = await this.questionService.createQuestion({
+          image: item.image,
+          description: item.description,
+        });
+
+        await user.$add('questions', question.id);
+        await user.save();
+        return dto;
+      }
+      throw new HttpException('User not exist', HttpStatus.NOT_FOUND);
+    });
+
+    /* const newQuestions = await this.questionService.getQuestions();
+    return newQuestions; */
   }
 
   async ban(dto: BanUserDto) {
@@ -115,5 +156,24 @@ export class UsersService {
     user.banReason = dto.banReason;
     await user.save();
     return user;
+  }
+
+  async updateQuestion(email: string, questionId: string, dto: UpdateQuestionDto) {
+    const user = await this.userRepository.findOne({
+      where: { email },
+      include: { all: true },
+    });
+
+    const currentQuestion = user.questions.find((item) => item.id === Number(questionId));
+    if (!currentQuestion) {
+      throw new HttpException('Question was not founded!', HttpStatus.NOT_FOUND);
+    }
+
+    currentQuestion.description = dto.description;
+    currentQuestion.image = dto.image;
+
+    const data = await currentQuestion.save();
+
+    return data;
   }
 }

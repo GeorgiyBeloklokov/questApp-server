@@ -7,14 +7,21 @@ export class AddQuestionDto {
     description: 'Title of question',
   })
   @IsString({ message: 'Should be a string' })
-  readonly title: string;
+  readonly description: string;
 
   @ApiProperty({
-    example: 'Hello everyone ...',
-    description: 'Description of question',
+    example: 'fdgbrtgbrf351651ergtg.img',
+    description: 'Link of image',
   })
   @IsString({ message: 'Should be a string' })
-  readonly description: string;
+  readonly image: string;
+
+  @ApiProperty({
+    example: 3,
+    description: 'id of question in user questions',
+  })
+  @IsString({ message: 'Should be a string' })
+  readonly questId: number;
 
   @ApiProperty({
     example: 5,
