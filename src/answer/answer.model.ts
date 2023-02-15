@@ -1,11 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { Question } from 'src/question/question.model';
 import { User } from 'src/users/users.model';
 
 interface PostCreationAttrs {
   title: string;
   isCorrect: boolean;
+  userId: number;
+  questionId: number;
 }
 
 @Table({ tableName: 'answers', createdAt: false, updatedAt: false })
@@ -23,7 +25,7 @@ export class Answer extends Model<Answer, PostCreationAttrs> {
   @Column({
     type: DataType.STRING,
     //unique: true,
-    //allowNull: false,
+    allowNull: false,
   })
   title: string;
 
@@ -33,11 +35,11 @@ export class Answer extends Model<Answer, PostCreationAttrs> {
   })
   @Column({
     type: DataType.BOOLEAN,
-    //allowNull: false,
+    allowNull: false,
   })
   isCorrect: boolean;
 
-  @ApiProperty({
+  /*  @ApiProperty({
     example: '2',
     description: 'questionId',
   })
@@ -55,7 +57,50 @@ export class Answer extends Model<Answer, PostCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
   })
+  userId: number; */
+
+  /* @BelongsTo(() => User) // one to many
+  author: User; */
+
+  /* @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+  })
   userId: number;
+
+  @ForeignKey(() => Answer)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  answerId: number;
+
+  @ForeignKey(() => Question)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  questionId: number;
+
+  @HasOne(() => User)
+  author: User; */
+  @ApiProperty({
+    example: 'userId',
+    description: 'id of user',
+  })
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  userId: number;
+
+  @ApiProperty({
+    example: 'questionId',
+    description: 'id of question',
+  })
+  @ForeignKey(() => Question)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  questionId: number;
 
   @BelongsTo(() => User) // one to many
   author: User;

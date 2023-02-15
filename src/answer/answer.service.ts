@@ -6,9 +6,18 @@ import { CreateAnswerDto } from './dto/create-answer.dto';
 @Injectable()
 export class AnswerService {
   constructor(@InjectModel(Answer) private answerRepository: typeof Answer) {}
-  async createAnswer(dto: CreateAnswerDto) {
-    const answer = await this.answerRepository.create(dto);
-    return answer;
+
+  async createAnswer(dto: CreateAnswerDto[]) {
+    dto.map(async (item) => {
+      const answer = await this.answerRepository.create({
+        title: item.title,
+        isCorrect: item.isCorrect,
+        userId: item.userId,
+        questionId: item.questionId,
+      });
+      await answer.save();
+      return answer;
+    });
   }
 
   async getAnswerByValue(title: string) {

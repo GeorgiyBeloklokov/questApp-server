@@ -23,10 +23,10 @@ export class AddAnswerDto {
   @IsNumber({}, { message: 'Should de a number' })
   readonly userId: number;
 
-  @ApiProperty({
+  /*@ApiProperty({
     example: 2,
     description: 'id of question for add answer',
   })
   @IsNumber({}, { message: 'Should de a number' })
-  readonly questionId: number;
+  readonly questionId: number; */
 }

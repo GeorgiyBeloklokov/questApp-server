@@ -2,7 +2,7 @@ import { Answer } from 'src/answer/answer.model';
 import { UserQuestions } from './../question/user-questions.model';
 import { Question } from './../question/question.model';
 import { ApiProperty } from '@nestjs/swagger';
-import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Post } from 'src/posts/posts.model';
 import { Role } from 'src/role/role.model';
 import { UserRoles } from 'src/role/user-roles.model';
@@ -12,7 +12,7 @@ interface UserCreationAttrs {
   password: string;
 }
 
-@Table({ tableName: 'users' })
+@Table({ tableName: 'users', createdAt: false, updatedAt: false })
 export class User extends Model<User, UserCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Unique id' })
   @Column({
@@ -58,11 +58,20 @@ export class User extends Model<User, UserCreationAttrs> {
   @BelongsToMany(() => Role, () => UserRoles) //many to many
   roles: Role[];
 
-  @BelongsToMany(() => Question, () => UserQuestions) //many to many
-  questions: Question[];
+  /*  @BelongsToMany(() => Question, () => UserQuestions) //many to many
+  questions: Question[]; */
+
+  /*  @ForeignKey(() => Answer)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  answerId: number; */
 
   @HasMany(() => Post)
   posts: Post[];
+
+  @HasMany(() => Question)
+  questions: Question[];
 
   @HasMany(() => Answer)
   answers: Answer[];

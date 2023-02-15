@@ -11,4 +11,10 @@ export class CreateQuestionDto {
     description: 'Link of image',
   })
   readonly image: string;
+
+  @ApiProperty({
+    example: 5,
+    description: 'id of user for add post',
+  })
+  readonly userId: number;
 }

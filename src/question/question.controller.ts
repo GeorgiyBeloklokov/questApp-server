@@ -21,7 +21,7 @@ export class QuestionController {
   @ApiOperation({ summary: 'Create question whit image link' })
   @ApiResponse({ status: 200, type: Question })
   @Post('/create')
-  createQuestion(@Body() dto: CreateQuestionDto) {
+  createQuestion(@Body() dto: CreateQuestionDto[]) {
     return this.questionService.createQuestion(dto);
   }
 

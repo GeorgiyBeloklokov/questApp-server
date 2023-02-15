@@ -9,7 +9,7 @@ interface PostCreationAttrs {
   image: string;
 }
 
-@Table({ tableName: 'posts' })
+@Table({ tableName: 'posts', createdAt: false, updatedAt: false })
 export class Post extends Model<Post, PostCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Unique id of post' })
   @Column({

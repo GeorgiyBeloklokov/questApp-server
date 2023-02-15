@@ -90,15 +90,15 @@ export class UsersController {
   addQuestion(@Body() dto: AddQuestionDto, @UploadedFile() image) {
     return this.usersService.addQuestion(dto, image);
   } */
-  @ApiOperation({ summary: 'Assignment question (access only with auth)' }) //(access only with auth)
+  /*  @ApiOperation({ summary: 'Assignment question (access only with auth)' }) //(access only with auth)
   @ApiResponse({ status: 200, type: Question })
   @UseGuards(JwtAuthGuard)
   @Post('/question')
   addQuestion(@Body() dto: AddQuestionDto[]) {
     return this.usersService.addQuestion(dto);
-  }
+  } */
 
-  @ApiOperation({ summary: 'Assignment answer (access only with auth)' })
+  /*   @ApiOperation({ summary: 'Assignment answer (access only with auth)' })
   @ApiResponse({ status: 200, type: Answer })
   @UseGuards(JwtAuthGuard)
   //@Roles('admin')
@@ -106,7 +106,7 @@ export class UsersController {
   @Post('/answer')
   addAnswer(@Body() dto: AddAnswerDto[]) {
     return this.usersService.addAnswer(dto);
-  }
+  } */
 
   @ApiOperation({ summary: 'Ban user (access only with admin role)' })
   @ApiResponse({ status: 200, type: User })
@@ -118,7 +118,7 @@ export class UsersController {
     return this.usersService.ban(dto);
   }
 
-  @ApiOperation({ summary: 'Update question' })
+  /* @ApiOperation({ summary: 'Update question' })
   @ApiResponse({ status: 200, type: Question })
   //@UseGuards(JwtAuthGuard)
   //@Roles('admin')
@@ -130,7 +130,7 @@ export class UsersController {
     @Body() dto: UpdateQuestionDto
   ) {
     return this.usersService.updateQuestion(email, questionId, dto);
-  }
+  } */
 
   /* @ApiOperation({ summary: 'Assignment fullquestion (access only with auth)' })
   @ApiResponse({ status: 200, type: AddFullQuestionDto })

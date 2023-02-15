@@ -15,4 +15,16 @@ export class CreateAnswerDto {
   })
   @IsBoolean({ message: 'Should de a boolean' })
   readonly isCorrect: boolean;
+
+  @ApiProperty({
+    example: 5,
+    description: 'id of user for add answer',
+  })
+  readonly userId: number;
+
+  @ApiProperty({
+    example: 5,
+    description: 'id of question for add answer',
+  })
+  readonly questionId: number;
 }

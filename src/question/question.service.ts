@@ -24,12 +24,16 @@ export class QuestionService {
     }
   }
 
-  async createQuestion(dto: CreateQuestionDto) {
-    const question = await this.questionRepository.create(dto);
-    /* if (!question) {
-      throw new HttpException('Error of create question!', HttpStatus.NOT_IMPLEMENTED);
-    } */
-    return question;
+  async createQuestion(dto: CreateQuestionDto[]) {
+    dto.map(async (item) => {
+      const question = await this.questionRepository.create({
+        description: item.description,
+        image: item.image,
+        userId: item.userId,
+      });
+      await question.save();
+      return question;
+    });
   }
 
   async getQuestionByTitle(description: string) {

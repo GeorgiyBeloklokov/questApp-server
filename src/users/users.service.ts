@@ -78,24 +78,25 @@ export class UsersService {
     throw new HttpException('User or role not exist', HttpStatus.NOT_FOUND);
   }
 
-  async addAnswer(dto: AddAnswerDto[]) {
+  /* async addAnswer(dto: AddAnswerDto[]) {
     dto.map(async (item) => {
-      const user = await this.userRepository.findByPk(item.userId);
-      const answer = await this.answerService.getAnswerByValue(item.title);
+      const user = await this.userRepository.findByPk(item.userId); */
+  //const answer = await this.answerService.getAnswerByValue(item.title);
 
-      if (answer && user) {
+  /* if (answer && user) {
         await user.$add('answer', answer.id);
         await user.save();
         return dto;
-      } else if (!answer && user) {
+      } else if */ /* if (user) {
         const newAnswer = await this.answerService.createAnswer({ title: item.title, isCorrect: item.isCorrect });
+        console.log(`test newAnswer =>>>>>>`, newAnswer);
         await user.$add('questions', newAnswer.id);
         await user.save();
         return dto;
       }
       throw new HttpException('User or answer not exist', HttpStatus.NOT_FOUND);
     });
-  }
+  } */
 
   /* async addQuestion(dto: AddQuestionDto, image) {
     const user = await this.userRepository.findByPk(dto.userId);
@@ -126,7 +127,7 @@ export class UsersService {
     }
     throw new HttpException('User or question not exist', HttpStatus.NOT_FOUND);
   } */
-  async addQuestion(dto: AddQuestionDto[]) {
+  /*  async addQuestion(dto: AddQuestionDto[]) {
     dto.map(async (item) => {
       const user = await this.userRepository.findByPk(item.userId);
 
@@ -143,9 +144,8 @@ export class UsersService {
       throw new HttpException('User not exist', HttpStatus.NOT_FOUND);
     });
 
-    /* const newQuestions = await this.questionService.getQuestions();
-    return newQuestions; */
-  }
+    
+  } */
 
   async ban(dto: BanUserDto) {
     const user = await this.userRepository.findByPk(dto.userId);
@@ -158,7 +158,7 @@ export class UsersService {
     return user;
   }
 
-  async updateQuestion(email: string, questionId: string, dto: UpdateQuestionDto) {
+  /* async updateQuestion(email: string, questionId: string, dto: UpdateQuestionDto) {
     const user = await this.userRepository.findOne({
       where: { email },
       include: { all: true },
@@ -175,5 +175,5 @@ export class UsersService {
     const data = await currentQuestion.save();
 
     return data;
-  }
+  } */
 }

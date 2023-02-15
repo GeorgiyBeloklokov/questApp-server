@@ -1,16 +1,17 @@
+import { Answer } from './../answer/answer.model';
 import { ApiProperty } from '@nestjs/swagger';
-import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 
 import { User } from 'src/users/users.model';
 import { UserQuestions } from './user-questions.model';
 
 interface QuestionCreationAttrs {
-  title: string;
   description: string;
   image: string;
+  userId: number;
 }
 
-@Table({ tableName: 'questions' })
+@Table({ tableName: 'questions', createdAt: false, updatedAt: false })
 export class Question extends Model<Question, QuestionCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Unique id of question' })
   @Column({
@@ -51,6 +52,34 @@ export class Question extends Model<Question, QuestionCreationAttrs> {
   })
   image: string;
 
-  @BelongsToMany(() => User, () => UserQuestions)
-  users: User[];
+  /* @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  userId: number;
+
+  @ForeignKey(() => Answer)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  questionId: number;
+
+  @HasMany(() => Answer)
+  answers: Answer[]; */
+
+  /*  @BelongsToMany(() => User, () => UserQuestions)
+  users: User[]; */
+
+  @ApiProperty({
+    example: 'userId',
+    description: 'id of user',
+  })
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  userId: number;
+
+  @BelongsTo(() => User) // one to many
+  author: User;
 }
