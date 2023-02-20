@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateQuestionDto } from './dto/create-question.dto';
-import { UpdateQuestionDto } from './dto/update-question.dto';
 import { Question } from './question.model';
 import { QuestionService } from './question.service';
 
@@ -18,11 +17,18 @@ export class QuestionController {
     return this.questionService.create(dto, image);
   }
 
-  @ApiOperation({ summary: 'Create question whit image link' })
+  @ApiOperation({ summary: 'Create array of questions whit image link' })
   @ApiResponse({ status: 200, type: Question })
   @Post('/create')
   createQuestion(@Body() dto: CreateQuestionDto[]) {
     return this.questionService.createQuestion(dto);
+  }
+
+  @ApiOperation({ summary: 'Create  question whit image link' })
+  @ApiResponse({ status: 200, type: Question })
+  @Post('/create/one')
+  createOneQuestion(@Body() dto: CreateQuestionDto) {
+    return this.questionService.createOneQuestion(dto);
   }
 
   @ApiOperation({ summary: 'Get questions' })
@@ -35,13 +41,10 @@ export class QuestionController {
     return this.questionService.getQuestions();
   }
 
-  /* @ApiOperation({ summary: 'Update question' })
+  @ApiOperation({ summary: 'Delete question by id' })
   @ApiResponse({ status: 200, type: Question })
-  //@UseGuards(JwtAuthGuard)
-  //@Roles('admin')
-  //@UseGuards(RolesGuard)
-  @Put('/user:email/:id')
-  updateQuestion(@Param('email') email: string, @Param('id') id: string, @Body() dto: UpdateQuestionDto) {
-    return this.questionService.updateQuestion(email, id, dto);
-  } */
+  @Delete('/delete/:id')
+  deleteById(@Param('id') id: number) {
+    return this.questionService.deleteQuestionById(id);
+  }
 }

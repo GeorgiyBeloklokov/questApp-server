@@ -1,15 +1,17 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { AnswerService } from 'src/answer/answer.service';
 import { FilesService } from 'src/files/files.service';
-import { UsersService } from 'src/users/users.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
-import { UpdateQuestionDto } from './dto/update-question.dto';
 import { Question } from './question.model';
-import { UserQuestions } from './user-questions.model';
 
 @Injectable()
 export class QuestionService {
-  constructor(@InjectModel(Question) private questionRepository: typeof Question, private fileService: FilesService) {}
+  constructor(
+    @InjectModel(Question) private questionRepository: typeof Question,
+    private fileService: FilesService,
+    private answerService: AnswerService
+  ) {}
   async create(dto: CreateQuestionDto, image: any) {
     if (image) {
       const fileName = await this.fileService.createFile(image);
@@ -26,14 +28,43 @@ export class QuestionService {
 
   async createQuestion(dto: CreateQuestionDto[]) {
     dto.map(async (item) => {
-      const question = await this.questionRepository.create({
-        description: item.description,
-        image: item.image,
-        userId: item.userId,
-      });
+      const question = await this.questionRepository.findByPk(item.id);
+      if (!question) {
+        const question = await this.questionRepository.create({
+          description: item.description,
+          image: item.image,
+          userId: item.userId,
+        });
+        await question.save();
+        return question;
+      }
+      question.image = item.image;
+      question.description = item.description;
+      question.userId = item.userId;
+      question.id = item.id;
       await question.save();
       return question;
     });
+  }
+
+  async createOneQuestion(dto: CreateQuestionDto) {
+    const question = await this.questionRepository.findByPk(dto.id);
+
+    if (!question) {
+      const question = await this.questionRepository.create({
+        description: '',
+        image: '',
+        userId: dto.userId,
+      });
+      await question.save();
+      return question;
+    }
+    question.image = dto.image;
+    question.description = dto.description;
+    question.userId = dto.userId;
+    question.id = dto.id;
+    await question.save();
+    return question;
   }
 
   async getQuestionByTitle(description: string) {
@@ -50,5 +81,12 @@ export class QuestionService {
       throw new HttpException('Error of find question!', HttpStatus.NOT_FOUND);
     } */
     return questions;
+  }
+
+  async deleteQuestionById(id: number) {
+    const question = await this.questionRepository.findByPk(id);
+    await this.answerService.destroyAnswersByQuestionId(id);
+    await question.destroy();
+    return question;
   }
 }

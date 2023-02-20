@@ -1,11 +1,10 @@
-import { Answer } from 'src/answer/answer.model';
-import { UserQuestions } from './../question/user-questions.model';
-import { Question } from './../question/question.model';
 import { ApiProperty } from '@nestjs/swagger';
-import { BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Answer } from 'src/answer/answer.model';
 import { Post } from 'src/posts/posts.model';
 import { Role } from 'src/role/role.model';
 import { UserRoles } from 'src/role/user-roles.model';
+import { Question } from './../question/question.model';
 
 interface UserCreationAttrs {
   email: string;
@@ -57,15 +56,6 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @BelongsToMany(() => Role, () => UserRoles) //many to many
   roles: Role[];
-
-  /*  @BelongsToMany(() => Question, () => UserQuestions) //many to many
-  questions: Question[]; */
-
-  /*  @ForeignKey(() => Answer)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  answerId: number; */
 
   @HasMany(() => Post)
   posts: Post[];

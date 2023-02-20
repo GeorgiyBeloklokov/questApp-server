@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateQuestionDto {
   @ApiProperty({
+    example: 4,
+    description: 'id of user question',
+  })
+  readonly id: number;
+
+  @ApiProperty({
     example: 'Bill Gates',
     description: 'Description of question',
   })

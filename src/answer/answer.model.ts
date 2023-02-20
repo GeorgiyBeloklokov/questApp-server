@@ -39,49 +39,6 @@ export class Answer extends Model<Answer, PostCreationAttrs> {
   })
   isCorrect: boolean;
 
-  /*  @ApiProperty({
-    example: '2',
-    description: 'questionId',
-  })
-  @ForeignKey(() => Question)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  questionId: number;
-
-  @ApiProperty({
-    example: '3',
-    description: 'userId',
-  })
-  @ForeignKey(() => User)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  userId: number; */
-
-  /* @BelongsTo(() => User) // one to many
-  author: User; */
-
-  /* @ForeignKey(() => User)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  userId: number;
-
-  @ForeignKey(() => Answer)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  answerId: number;
-
-  @ForeignKey(() => Question)
-  @Column({
-    type: DataType.INTEGER,
-  })
-  questionId: number;
-
-  @HasOne(() => User)
-  author: User; */
   @ApiProperty({
     example: 'userId',
     description: 'id of user',

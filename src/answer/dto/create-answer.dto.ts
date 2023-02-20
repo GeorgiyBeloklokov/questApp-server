@@ -3,6 +3,12 @@ import { IsBoolean, IsString } from 'class-validator';
 
 export class CreateAnswerDto {
   @ApiProperty({
+    example: 4,
+    description: 'id of user answer',
+  })
+  readonly id: number;
+
+  @ApiProperty({
     example: 'Bill gates says..',
     description: 'Title of answer, should be a string',
   })
