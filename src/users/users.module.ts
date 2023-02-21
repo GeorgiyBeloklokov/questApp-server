@@ -8,7 +8,6 @@ import { Role } from 'src/role/role.model';
 import { UserRoles } from 'src/role/user-roles.model';
 import { RoleModule } from 'src/role/role.module';
 import { Post } from 'src/posts/posts.model';
-import { UserQuestions } from 'src/question/user-questions.model';
 import { Question } from 'src/question/question.model';
 import { QuestionModule } from 'src/question/question.module';
 import { Answer } from 'src/answer/answer.model';
@@ -18,7 +17,7 @@ import { AnswerModule } from 'src/answer/answer.module';
   controllers: [UsersController],
   providers: [UsersService],
   imports: [
-    SequelizeModule.forFeature([User, Role, UserRoles, UserQuestions, Post, Question, Answer]),
+    SequelizeModule.forFeature([User, Role, UserRoles, Post, Question, Answer]),
     RoleModule,
     AnswerModule,
     QuestionModule,
