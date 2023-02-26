@@ -25,9 +25,9 @@ export class UsersController {
     return this.usersService.createUsers(userDto, newUserRole);
   }
 
-  @ApiOperation({ summary: 'Get users (access only with auth)' })
+  @ApiOperation({ summary: 'Get users' }) //(access only with auth)
   @ApiResponse({ status: 200, type: [User] })
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   //@Roles('admin')
   //@UseGuards(RolesGuard)
   @Get()
