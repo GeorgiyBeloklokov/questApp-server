@@ -24,29 +24,60 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## This server REST API created for quest App with auth login whit JWT, roles, swagger, sequelize, postgreSQL, validation data, websocket chat, docker, prod/dev environments by Georgiy Beloklokov
-## Running the app
+## This server REST API created for quiz App with registration, authentication, login,  by JWT, roles, swagger, orm sequelize, postgreSQL, validation data, docker, prod/dev environments by Georgiy Beloklokov.
+## Running the app:
+For use server you need to install postgresql db in you machine https://www.postgresql.org/download/ 
+ configuring .development.env for develop mode and  .production.env for deploy
 
 ```bash
 # development
-$ npm run start
-
-# watch mode
 $ npm run start:dev
 
 # production mode
-$ npm run start:prod
+$ npm run start
 ```
 
-## Test
+## Docker:
+For use whit Docker you need to install Docker desktop in you machine https://www.docker.com/
 
 ```bash
-# unit tests
-$ npm run test
+# build docker image
+$ docker-compose build
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Up docker image whit server and postgressql db
+$ docker-compose up
 ```
+1 - Использован REST API
+
+2 - Использован MVC паттерн
+
+3 - Подключение и работа с БД
+
+4 - Аутентификация
+
+5 - Авторизация
+
+6 - Регистрация
+
+7 - Используется ORM Sequelize.
+
+8 - Сервер реализован на Nest.js
+
+9 - Реализованы роли на сервере (user/admin)
+
+10 - Реализована возможность запустить сервер и бд в докере
+
+11 - Реализована валидация данных на сервере
+
+12 - Документация swagger (https://quest-app-server.onrender.com/api/docs)
+
+13 - Реализована работа с изображениями.
+
+14 - Сервер отдаёт корректные ответы, отдаёт HTTP ошибки с нормальными body, по которым можно понять, что произошло, пишет читаемые логи
+#### На сервисе render.com существует политика "Засыпания" сервисов по истечении 15 минут бездействия, чтобы начать тестировать сервер нужно разбудить сервер делая запросы по адресу https://quest-app-server.onrender.com/api/docs (обычно 3 - 5 запросов) и дождаться получения докуменатции свагер (ответа сервера)
+ - Как делать запрос: вставить https://quest-app-server.onrender.com/api/doc в адресную строку браузера + enter => подождать => перезагрузить браузер и вставив еще раз строку => подождать => перезагружать 3 - 4 раза до получения документации свагера
+
+## Postman:
+### 1 - Регистрация с ролью "user":
+![reg_user](https://user-images.githubusercontent.com/77876368/221405787-9c55ea57-8a18-4b4f-be11-172d51267d50.jpg)
+
