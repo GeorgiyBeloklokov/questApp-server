@@ -54,7 +54,7 @@ export class AuthService {
 
     const passwordEquals = await bcrypt.compare(userDto.password, user.password);
 
-    console.log(`passwordEquals =>>>>>>>>>>>>>>>`, passwordEquals, userDto.password, user.password);
+    //console.log(`passwordEquals =>>>>>>>>>>>>>>>`, passwordEquals, userDto.password, user.password);
     if (user && passwordEquals) {
       return user;
     }
