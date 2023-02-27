@@ -69,7 +69,7 @@ $ docker-compose up
 
 11 - Реализована валидация данных на сервере
 
-12 - Документация swagger https://questapp-server-production.up.railway.app/api/docs
+12 - Документация swagger [https://questapp-server-production.up.railway.app/api/docs](https://rs-quizz-app-server.up.railway.app/api/docs)
 
 13 - Реализована работа с изображениями.
 
@@ -79,4 +79,4 @@ $ docker-compose up
 ### 1 - Регистрация с ролью "user":
 ![registration](https://user-images.githubusercontent.com/77876368/221429504-41734ed8-fd25-41ea-bc44-992dc6e622a9.jpg)
 
-### Остальные эндпойнты можно посмотреть в swagger https://questapp-server-production.up.railway.app/api/docs
+### Остальные эндпойнты можно посмотреть в swagger https://rs-quizz-app-server.up.railway.app/api/docs
