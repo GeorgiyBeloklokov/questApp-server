@@ -24,7 +24,7 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## This server REST API created for quiz App with registration, authentication, login,  by JWT, roles, swagger, orm sequelize, postgreSQL, validation data, docker, prod/dev environments by Georgiy Beloklokov.
+## This server REST API created for quiz App with registration, authentication, login,  by JWT, roles, swagger, orm sequelize, postgreSQL, validation data, docker, prod/dev environments.
 ## Running the app:
 For use server you need to install postgresql db in you machine https://www.postgresql.org/download/ 
  configuring .development.env for develop mode and  .production.env for deploy
@@ -69,15 +69,14 @@ $ docker-compose up
 
 11 - Реализована валидация данных на сервере
 
-12 - Документация swagger (https://quest-app-server.onrender.com/api/docs)
+12 - Документация swagger https://questapp-server-production.up.railway.app/api/docs
 
 13 - Реализована работа с изображениями.
 
 14 - Сервер отдаёт корректные ответы, отдаёт HTTP ошибки с нормальными body, по которым можно понять, что произошло, пишет читаемые логи
-#### На сервисе render.com существует политика "Засыпания" сервисов по истечении 15 минут бездействия, чтобы начать тестировать сервер нужно разбудить сервер делая запросы по адресу https://quest-app-server.onrender.com/api/docs (обычно 3 - 5 запросов) и дождаться получения докуменатции свагер (ответа сервера)
- - Как делать запрос: вставить https://quest-app-server.onrender.com/api/doc в адресную строку браузера + enter => подождать => перезагрузить браузер и вставив еще раз строку => подождать => перезагружать 3 - 4 раза до получения документации свагера
 
 ## Postman:
 ### 1 - Регистрация с ролью "user":
-![reg_user](https://user-images.githubusercontent.com/77876368/221405787-9c55ea57-8a18-4b4f-be11-172d51267d50.jpg)
+![registration](https://user-images.githubusercontent.com/77876368/221429504-41734ed8-fd25-41ea-bc44-992dc6e622a9.jpg)
 
+### Остальные эндпойнты можнопосмотреть в swagger https://questapp-server-production.up.railway.app/api/docs
