@@ -79,4 +79,4 @@ $ docker-compose up
 ### 1 - Регистрация с ролью "user":
 ![registration](https://user-images.githubusercontent.com/77876368/221429504-41734ed8-fd25-41ea-bc44-992dc6e622a9.jpg)
 
-### Остальные эндпойнты можнопосмотреть в swagger https://questapp-server-production.up.railway.app/api/docs
+### Остальные эндпойнты можно посмотреть в swagger https://questapp-server-production.up.railway.app/api/docs
