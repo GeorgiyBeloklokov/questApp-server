@@ -24,7 +24,7 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## This server REST API created for quest App with auth login whit JWT, roles, swagger, sequelize, postgreSQL, validation data, websocket chat, docker, prod/dev environments by Georgiy Beloklokov
+## This REST API server was created for Quizz app with auth login whit jwt token, roles, swagger, sequelize, postgreSQL, validation data, websocket chat, docker, prod/dev environments.
 ## Running the app
 
 ```bash
