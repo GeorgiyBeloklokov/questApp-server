@@ -21,7 +21,7 @@ import { Answer } from './answer/answer.model';
   controllers: [],
   providers: [],
   imports: [
-    ConfigModule.forRoot({ envFilePath: '.env' }),
+    ConfigModule.forRoot({ envFilePath: `.${process.env.NODE_ENV}` }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),
     }),
